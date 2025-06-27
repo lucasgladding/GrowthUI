@@ -10,11 +10,21 @@ import SwiftData
 
 struct SessionsList: View {
     @Environment(\.modelContext) private var context
-    @Query(sort: \Session.name, order: .reverse) private var sessions: [Session]
+    @Query(sort: \Session.name) private var sessions: [Session]
     
     var body: some View {
-        List(sessions) { session in
-            SessionView(session: session)
+        List {
+            Image(.cat)
+                .resizable()
+                .aspectRatio(contentMode: .fill)
+                .frame(height: 200)
+                .listRowInsets(EdgeInsets(top: 0, leading: 0, bottom: 0, trailing: 0))
+
+            Section {
+                ForEach(sessions) { session in
+                    SessionView(session: session)
+                }
+            }
         }
         .navigationTitle("Sessions")
         .toolbar {
@@ -38,6 +48,7 @@ struct SessionsList: View {
     let context = container.mainContext
     let a = Session.sample
     context.insert(Session.sample(name: "Session 1"))
+    context.insert(Session.sample(name: "Session 2"))
     return NavigationStack {
         SessionsList()
     }
