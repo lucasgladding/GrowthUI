@@ -15,3 +15,21 @@ struct Session {
     var description: String = ""
     var attendeeCount: Int = 0
 }
+
+extension Session: Identifiable {
+    //
+}
+
+extension Session {
+    static var sample: Session {
+        let begins = Date()
+        let ends = begins
+        return Session(
+            name: "Session 1",
+            begins: begins,
+            ends: ends,
+            description: "Lorem ipsum",
+            attendeeCount: 5
+        )
+    }
+}
