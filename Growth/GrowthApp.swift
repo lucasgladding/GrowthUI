@@ -11,7 +11,7 @@ import SwiftData
 @main
 struct GrowthApp: App {
     var local: ModelContainer = {
-        let schema = Schema([])
+        let schema = Schema([Session.self])
         let configuration = ModelConfiguration(schema: schema, isStoredInMemoryOnly: false)
 
         do {

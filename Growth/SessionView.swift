@@ -28,7 +28,7 @@ struct SessionView: View {
                     Spacer()
                     Text("\(session.attendeeCount) attendees")
                 }
-                Text(session.description)
+                Text(session.comments)
             }
             .foregroundStyle(.secondary)
         }
@@ -42,7 +42,7 @@ struct SessionView: View {
         name: "Session 1",
         begins: begins,
         ends: begins,
-        description: "Lorem ipsum",
+        comments: "Lorem ipsum",
         attendeeCount: 5
     )
     List {

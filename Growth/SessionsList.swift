@@ -6,12 +6,10 @@
 //
 
 import SwiftUI
+import SwiftData
 
 struct SessionsList: View {
-    let sessions: [Session] = [
-        .sample,
-        .sample,
-    ]
+    @Query var sessions: [Session]
 
     var body: some View {
         List(sessions) { session in
@@ -21,5 +19,11 @@ struct SessionsList: View {
 }
 
 #Preview {
-    SessionsList()
+    let container: ModelContainer = .test
+    let context = container.mainContext
+    let a = Session.sample
+    context.insert(Session.sample(name: "Session 1"))
+    context.insert(Session.sample(name: "Session 2"))
+    return SessionsList()
+        .modelContainer(container)
 }
