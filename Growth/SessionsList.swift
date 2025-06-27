@@ -9,12 +9,27 @@ import SwiftUI
 import SwiftData
 
 struct SessionsList: View {
-    @Query var sessions: [Session]
-
+    @Environment(\.modelContext) private var context
+    @Query(sort: \Session.name, order: .reverse) private var sessions: [Session]
+    
     var body: some View {
         List(sessions) { session in
             SessionView(session: session)
         }
+        .navigationTitle("Sessions")
+        .toolbar {
+            ToolbarItem(placement: .primaryAction) {
+                Button("New Session", systemImage: "plus") {
+                    insert()
+                }
+            }
+        }
+    }
+    
+    func insert() {
+        let i = sessions.count + 1
+        let session = Session.sample(name: "Session \(i)")
+        context.insert(session)
     }
 }
 
@@ -23,7 +38,8 @@ struct SessionsList: View {
     let context = container.mainContext
     let a = Session.sample
     context.insert(Session.sample(name: "Session 1"))
-    context.insert(Session.sample(name: "Session 2"))
-    return SessionsList()
-        .modelContainer(container)
+    return NavigationStack {
+        SessionsList()
+    }
+    .modelContainer(container)
 }
